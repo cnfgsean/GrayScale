@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#canvas-div {
+
+}
+
+#canvas-div canvas {
+  padding: 0;
+  margin: auto;
+  margin-top: 15px;
+  display: block;
+  background-color: #ddd;
+}
