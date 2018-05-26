@@ -34,7 +34,7 @@ function dispRules() {
 
 
   c.font = "35px Arial";
-  c.fillStyle = "rgba(256, 256, 256, 0.65)";
+  c.fillStyle = "rgba(256, 256, 256, 0.8)";
   c.fillText("Click to begin.", canvas.width / 2, (canvas.height / 2) + 240);
 
 }

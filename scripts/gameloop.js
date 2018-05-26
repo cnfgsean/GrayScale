@@ -1,6 +1,22 @@
 var rounds = 1;
 var gradientAmt = 4;
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 function makeGradient() {
   var ranges = [];
   var isGray = Math.floor(Math.random() * gradientAmt);
@@ -28,7 +44,7 @@ function makeGradient() {
       (b + (b_sep * i))]);
   }
 
-  return ranges;
+  return shuffle(ranges);
 }
 
 function gradientDisplay(colors) {
