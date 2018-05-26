@@ -7,11 +7,20 @@ var colors;
 var timeOut = false;
 var hasLost = false;
 const gap = 15;
+var clickSector;
 
 canvas.addEventListener("click", function(e) {
   if(onPlay) {
-    console.log(e);
-    timeOut = true;
+    console.log(e.clientX);
+    console.log(e.clientY);
+
+    var widthUnit = canvas.width / gradientAmt;
+    var heightUnit = canvas.height / gradientAmt;
+
+    clickSector = Math.floor(e.clientX / widthUnit);
+    if (e.clientY > (heightUnit * clickSector)) {
+      timeOut = true;
+    }
   }
 });
 
@@ -31,46 +40,6 @@ function shuffle(array) {
   return array;
 }
 
-function makeGradient() {
-  var ranges = [];
-  var isGray = Math.floor(Math.random() * gradientAmt);
-  var r = Math.floor(Math.random() * 180);
-  var g = Math.floor(Math.random() * 180);
-  var b = Math.floor(Math.random() * 180);
-
-  var r_right = Math.floor(Math.random() * (255 - r)) + r;
-  var g_right = Math.floor(Math.random() * (255 - g)) + g;
-  var b_right = Math.floor(Math.random() * (255 - b)) + b;
-
-  var r_sep = Math.ceil((r_right - r) / gradientAmt);
-  var g_sep = Math.ceil((g_right - g) / gradientAmt);
-  var b_sep = Math.ceil((b_right - b) / gradientAmt);
-
-  if (isGray > 3) {
-    g = r;
-    b = r;
-    g_sep = r_sep;
-    b_sep = r_sep;
-  }
-  for (var i = 0; i < gradientAmt; i++) {
-    ranges.push([(r + (r_sep * i)),
-      (g + (g_sep * i)),
-      (b + (b_sep * i))]);
-  }
-
-  return shuffle(ranges);
-}
-
-function gradientDisplay(colors) {
-  for (var i = 0; i < gradientAmt; i++) {
-    var r = colors[i][0];
-    var g = colors[i][1];
-    var b = colors[i][2];
-    c.fillStyle = `rgb(${r}, ${g}, ${b})`;
-    c.fillRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap, (canvas.width / gradientAmt) - gap , 3000);
-  }
-}
-
 function play() {
   if (onPlay) {
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -86,14 +55,14 @@ function play() {
     onPlay = false;
   } else if (timeOut) {
     // check if answer is true
-    console.log("Checking");
+    console.log("Checking click sector " + clickSector);
     // If correct
     newRound = true; // Start a new round
     timeOut = false; // The time did not stop
     globalTimer.time = resetTimeValue * 0.99;
     resetTimeValue = globalTimer.time;
     rounds++;
-    if (rounds % 7 == 0) {
+    if (rounds % 13 == 0) {
       gradientAmt++;
     }
   }
@@ -111,7 +80,6 @@ function play() {
 
   // TIMER
   if (!timeOut) {
-    console.log(globalTimer.time);
     globalTimer.tick();
     globalTimer.disp();
   }

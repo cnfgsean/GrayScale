@@ -95,7 +95,7 @@ function startup() {
 
 // THE REAL GAME
 var rounds = 0;
-var seps = 3; // The amount of rectangles in the gradient
+// var seps = 3; // The amount of rectangles in the gradient
 
 function init() {
   startup();
