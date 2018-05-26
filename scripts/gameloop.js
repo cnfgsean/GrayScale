@@ -1,5 +1,19 @@
 var rounds = 1;
 var gradientAmt = 4;
+var resetTimeValue = 1;
+var globalTimer = new Timer(resetTimeValue);
+var newRound = true;
+var colors;
+var timeOut = false;
+var hasLost = false;
+const gap = 15;
+
+canvas.addEventListener("click", function(e) {
+  if(onPlay) {
+    console.log(e);
+    timeOut = true;
+  }
+});
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -32,7 +46,7 @@ function makeGradient() {
   var g_sep = Math.ceil((g_right - g) / gradientAmt);
   var b_sep = Math.ceil((b_right - b) / gradientAmt);
 
-  if (isGray == 1) {
+  if (isGray > 3) {
     g = r;
     b = r;
     g_sep = r_sep;
@@ -53,18 +67,53 @@ function gradientDisplay(colors) {
     var g = colors[i][1];
     var b = colors[i][2];
     c.fillStyle = `rgb(${r}, ${g}, ${b})`;
-    console.log(c.fillStyle);
-    c.fillRect(i * (canvas.width / gradientAmt), i * (canvas.height / gradientAmt), (canvas.width / gradientAmt) - 10 , canvas.height);
+    c.fillRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap, (canvas.width / gradientAmt) - gap , 3000);
   }
 }
 
 function play() {
-  // if (onPlay) {
-  //   requestAnimationFrame(play);
-  // }
-  var colors = makeGradient();
-  console.log(colors);
-  console.log("Finished");
-  c.fillStyle = "#fff";
+  if (onPlay) {
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    requestAnimationFrame(play);
+  } else {
+    console.log("Not playing!");
+  }
+
+  // WIN CONDITIONS
+  if (hasLost) {
+    console.log("Time out!");
+    timeOut = false;
+    onPlay = false;
+  } else if (timeOut) {
+    // check if answer is true
+    console.log("Checking");
+    // If correct
+    newRound = true; // Start a new round
+    timeOut = false; // The time did not stop
+    globalTimer.time = resetTimeValue * 0.99;
+    resetTimeValue = globalTimer.time;
+    rounds++;
+    if (rounds % 7 == 0) {
+      gradientAmt++;
+    }
+  }
+
+  // ROUNDS
+  if (newRound) {
+    colors = makeGradient();
+    console.log(colors);
+    console.log("New Round");
+    newRound = false;
+  }
+
+  // GRADIENT
   gradientDisplay(colors);
+
+  // TIMER
+  if (!timeOut) {
+    console.log(globalTimer.time);
+    globalTimer.tick();
+    globalTimer.disp();
+  }
+
 }
