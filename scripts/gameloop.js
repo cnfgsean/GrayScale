@@ -8,6 +8,7 @@ var timeOut = false;
 var hasLost = false;
 const gap = 15;
 var clickSector;
+var missingIndex;
 
 canvas.addEventListener("click", function(e) {
   if(onPlay) {
@@ -69,14 +70,24 @@ function play() {
 
   // ROUNDS
   if (newRound) {
+    console.log("New Round");
     colors = makeGradient();
     console.log(colors);
-    console.log("New Round");
+
+    missingIndex = Math.floor(Math.random() * gradientAmt);
+    var colorsButOne = colors.slice();
+    colorsButOne.splice(missingIndex, 1);
+    colorsButOne = shuffle(colorsButOne);
+    console.log(missingIndex + " is gone");
+    console.log(colorsButOne);
     newRound = false;
   }
 
   // GRADIENT
   gradientDisplay(colors);
+
+  // TOP
+
 
   // TIMER
   if (!timeOut) {
