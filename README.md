@@ -1,2 +1,3 @@
 # GrayScale
-*A casual game involving circles and color*
+*A casual game involving colors*
+Beware of the *Gray*.

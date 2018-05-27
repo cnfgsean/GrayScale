@@ -9,6 +9,8 @@ var hasLost = false;
 const gap = 15;
 var clickSector;
 var missingIndex;
+var colorsButOne;
+var messageType;
 
 canvas.addEventListener("click", function(e) {
   if(onPlay) {
@@ -51,21 +53,27 @@ function play() {
 
   // WIN CONDITIONS
   if (hasLost) {
-    console.log("Time out!");
+    console.log("You lost!!");
     timeOut = false;
     onPlay = false;
   } else if (timeOut) {
     // check if answer is true
     console.log("Checking click sector " + clickSector);
-    // If correct
-    newRound = true; // Start a new round
-    timeOut = false; // The time did not stop
-    globalTimer.time = resetTimeValue * 0.99;
-    resetTimeValue = globalTimer.time;
-    rounds++;
-    if (rounds % 13 == 0) {
-      gradientAmt++;
+    if (clickSector == missingIndex) {
+      // If correct
+      newRound = true; // Start a new round
+      timeOut = false; // The time did not stop
+      globalTimer.time = resetTimeValue * 0.99;
+      resetTimeValue = globalTimer.time;
+      rounds++;
+      if (rounds % 13 == 0) {
+        gradientAmt++;
+      }
+    } else {
+      hasLost = true;
+      messageType = 1;
     }
+
   }
 
   // ROUNDS
@@ -75,7 +83,7 @@ function play() {
     console.log(colors);
 
     missingIndex = Math.floor(Math.random() * gradientAmt);
-    var colorsButOne = colors.slice();
+    colorsButOne = colors.slice();
     colorsButOne.splice(missingIndex, 1);
     colorsButOne = shuffle(colorsButOne);
     console.log(missingIndex + " is gone");
@@ -87,12 +95,18 @@ function play() {
   gradientDisplay(colors);
 
   // TOP
+  gradientDisplayTop();
 
 
   // TIMER
   if (!timeOut) {
     globalTimer.tick();
     globalTimer.disp();
+  }
+
+  if (hasLost) {
+    gameOver();
+
   }
 
 }

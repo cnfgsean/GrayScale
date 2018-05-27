@@ -81,15 +81,11 @@ function startup() {
 
 
   // Credits
-  c.font = "14px Arial";
-  c.fillStyle = "rgba(255, 255, 255, 0.35)";
-  c.fillText("Coded in color", canvas.width / 2, (canvas.height - 100) + 70);
-
   c.font = "12px Arial";
-  c.fillStyle = "rgba(255, 255, 255, 0.35)";
-  c.fillText("-SF", canvas.width / 2, (canvas.height - 85) + 70);
+  c.fillStyle = "rgba(0, 0, 0, 0.35)";
+  c.fillText("Coded in color - Sean", canvas.width / 2, canvas.height - 6);
 
-  startCounter += 0.01;
+  startCounter += 0.007;
 
 }
 

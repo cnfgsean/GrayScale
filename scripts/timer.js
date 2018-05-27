@@ -3,10 +3,11 @@ function Timer(time) {
 
   this.tick = function() {
     if ((this.time > 0) && (!timeOut)) {
-      this.time -= 0.0015;
+      this.time -= 0.001;
     } else if (timeOut) {
       timeOut = true;
     } else {
+      messageType = 0;
       hasLost = true;
       timeOut = true;
     }

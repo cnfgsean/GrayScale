@@ -28,7 +28,7 @@ function makeGradient() {
   return shuffle(ranges);
 }
 
-function gradientDisplay(colors) {
+function gradientDisplay() {
   for (var i = 0; i < gradientAmt; i++) {
     var r = colors[i][0];
     var g = colors[i][1];
