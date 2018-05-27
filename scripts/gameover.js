@@ -3,12 +3,15 @@ var messageLostTime = [
   "Too fast for you?",
   "Just not enough time.",
   "Speed it up, dude!",
-  "Wish you had more time?"
+  "Wish you had more time?",
+  "With practice comes speed."
 ];
 var messageLostWrong = [
   "Wrong color!",
   "Bad guess.",
-  "Turn up your brightness?"
+  "Turn up your brightness?",
+  "That was a toughie.",
+  "Wish you knew everything.."
 ];
 var topMessage = [
   "Oops!",
@@ -17,9 +20,19 @@ var topMessage = [
   "It looks like",
   "It appears"
 ];
-
+var messageReveal = [
+  "Yeah, it was",
+  "Should have clicked",
+  "Better choice would have been",
+  "Who knew? It was",
+  "Apparently, it was"
+];
 function gameOver() {
   c.clearRect(0, 0, canvas.width, canvas.height);
+
+  canvas.addEventListener("click", function() {
+    location.reload();
+  });
 
   switch(messageType) {
     case 0:
@@ -64,10 +77,18 @@ function gameOver() {
 
   const rectWidth = 100;
 
-  c.font = "45px Tahoma";
+  c.font = "27px Tahoma";
   c.fillStyle = "rgba(256, 256, 256, 0.65)";
-  c.fillText("Yeah, it was rectangle " + (missingIndex + 1).toString(), canvas.width / 2, (canvas.height / 2) + 120);
+  c.fillText(messageReveal[Math.floor(Math.random() * messageReveal.length)] + " rectangle " + (missingIndex + 1).toString(), canvas.width / 2, (canvas.height / 2) + 120);
 
   c.fillStyle = `rgb(${colors[missingIndex][0]}, ${colors[missingIndex][1]}, ${colors[missingIndex][2]})`;
   c.fillRect((canvas.width / 2) - rectWidth, (canvas.height / 2) + 150, rectWidth * 2, 20);
+
+  c.strokeStyle = "rgba(255, 255, 255, 0.7)";
+  c.lineWidth = 2;
+  c.strokeRect((canvas.width / 2) - rectWidth, (canvas.height / 2) + 150, rectWidth * 2, 20);
+
+  c.font = "15px Tahoma";
+  c.fillStyle = "rgba(256, 256, 256, 0.65)";
+  c.fillText("Click me and get a better score!", canvas.width / 2, (canvas.height / 2) + 200);
 }
