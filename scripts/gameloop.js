@@ -66,7 +66,7 @@ function play() {
       globalTimer.time = resetTimeValue * 0.99;
       resetTimeValue = globalTimer.time;
       rounds++;
-      if (rounds % 13 == 0) {
+      if (rounds % 10 == 0) {
         gradientAmt++;
       }
     } else {
@@ -97,12 +97,14 @@ function play() {
   // TOP
   gradientDisplayTop();
 
-
   // TIMER
   if (!timeOut) {
     globalTimer.tick();
     globalTimer.disp();
   }
+
+  // SCORE
+  dispScore();
 
   if (hasLost) {
     gameOver();

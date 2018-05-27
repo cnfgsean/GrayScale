@@ -46,6 +46,7 @@ function gameOver() {
 
   gradientDisplayTop();
   gradientDisplay(colors);
+  dispScore();
   // BACKGROUND CIRCLE OUTSIDE
   c.beginPath();
   c.fillStyle = "rgba(50, 50, 50, 0.4)";
