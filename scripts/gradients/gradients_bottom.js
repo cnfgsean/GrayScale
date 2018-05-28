@@ -34,11 +34,23 @@ function gradientDisplay() {
     var g = colors[i][1];
     var b = colors[i][2];
     c.fillStyle = `rgb(${r}, ${g}, ${b})`;
-    c.fillRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap, (canvas.width / gradientAmt) - gap , 3000);
+    c.fillRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap * 2.7, (canvas.width / gradientAmt) - gap , 3000);
 
-    c.strokeStyle = "#ddd";
-    c.lineWidth = 5;
-    c.strokeRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap, (canvas.width / gradientAmt) - gap , 3000);
+    c.strokeStyle = "#bbb";
+    c.lineWidth = 8;
+    c.strokeRect(i * (canvas.width / gradientAmt), (i * (canvas.height / gradientAmt)) + gap * 2.7, (canvas.width / gradientAmt) - gap , 3000);
+
+    c.font = "20px Arial";
+    for (var j = 0; j < gradientAmt; j++) {
+      c.beginPath();
+      c.fillStyle = "rgba(50, 50, 50, 0.33)";
+      c.arc(j * (canvas.width / gradientAmt) + ((canvas.width / gradientAmt) / 2), canvas.height - 23, 15, 0, Math.PI * 2, false);
+      c.fill();
+
+      c.fillStyle = "rgba(256, 256, 256, 0.6)";
+      c.fillText((j + 1).toString(), j * (canvas.width / gradientAmt) + ((canvas.width / gradientAmt) / 2), canvas.height - 15);
+
+    }
 
   }
 }

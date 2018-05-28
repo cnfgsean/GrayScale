@@ -66,7 +66,7 @@ function play() {
       globalTimer.time = resetTimeValue * 0.99;
       resetTimeValue = globalTimer.time;
       rounds++;
-      if (rounds % 10 == 0) {
+      if ((rounds % 10 == 0) && (gradientAmt < 10)) {
         gradientAmt++;
       }
     } else {
@@ -86,7 +86,7 @@ function play() {
     colorsButOne = colors.slice();
     colorsButOne.splice(missingIndex, 1);
     colorsButOne = shuffle(colorsButOne);
-    console.log(missingIndex + " is gone");
+    console.log((missingIndex + 1).toString() + " is gone");
     console.log(colorsButOne);
     newRound = false;
   }
