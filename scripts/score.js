@@ -8,7 +8,7 @@ function dispScore() {
   c.fillStyle = "rgba(50, 50, 50, 0.5)";
   // c.beginPath();
   c.moveTo(center, center);
-  c.arc(center, center, radius + 10, 0, (lastDig * 0.1) * (Math.PI * 1.5), false);
+  c.arc(center, center, radius + 10, Math.PI * 1.5, (Math.PI * 1.5) + ((lastDig * 0.1) * Math.PI * 2), false);
   c.lineTo(center, center);
   c.fill();
 
